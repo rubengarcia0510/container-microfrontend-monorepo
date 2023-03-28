@@ -1,27 +1,75 @@
-# ContainerMicro
+# Microfrontend monorepo project
+This project is based on the youtube tutorial https://www.youtube.com/watch?v=PnzI3GGozLA&t=189s
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
+#Install the project
+Clone the project with this command : https://github.com/rubengarcia0510/container-microfrontend-monorepo.git
 
-## Development server
+move to the container-microfrontend-monorepo directory : cd container-microfrontend-monorepo
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+install the npm dependencies: npm install
 
-## Code scaffolding
+#Run the project
+The project has 2 parts. A host and a client. It's necesary run the two projects. If the client isnt running, the host doesnt run properly
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To run the host : ng start host
+To run the client: ng start client-a
 
-## Build
+#Implementation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1 - Create the container
 
-## Running unit tests
+ng new container-microfrontend-monorepo --create-application=false
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2 - Create the host
 
-## Running end-to-end tests
+cd container-microfrontend-monorepo
+ng g application host
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3 - Create the client
 
-## Further help
+ng g application client-a
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+4 - Create a component home in the host aplication/project
+
+ng g c home --project=host
+
+4.a Configure the host. In the app.routing.module
+[code]
+const routes: Routes = [{
+  path:'',
+  component: HomeComponent,
+  pathMatch:'full'
+}
+]
+[/code]
+
+At this point, you can test the application
+ng s host
+you will see the messaje "host works!"
+
+5 - Create a home component for the client
+
+ng g c home-a --project=client-a
+
+6 - Create a show module for the client
+
+ng g m show --project=client-a --routing=true
+
+7 - Create a component show in the client
+
+ng g c show --project=client-a
+
+8 - Configure the client
+8.a - in the app.routing.module
+[code]
+const routes: Routes = [{
+  path:'',
+  component: HomeAComponent
+}
+]
+[/code]
+
+
+
+
+
